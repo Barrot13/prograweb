@@ -16,6 +16,7 @@
                 <label for="contrasena_nuevo"><b>Contraseña</b></label>
                 <input type="password" name="contrasena_nuevo">
                 <input type="submit" name="submit_nuevo" value="Nuevo">
+                <a href="login.php">Regresar</a>
             </div>
         </form>
     </div>
