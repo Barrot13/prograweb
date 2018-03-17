@@ -9,7 +9,11 @@ if((isset($_POST['nombre_nuevo']) && !empty($_POST['nombre_nuevo'])) &&
 	$registro = $nombreU."@".$contrasenaU."#";
 	fwrite($archivo, $registro);
 	fclose($archivo);
-	mkdir("/".$nombreU);
+	mkdir($nombreU);
+	$indice = fopen($nombreU."/indice.txt", 'a+');
+	fclose($indice);
+	$datos = fopen($nombreU."/datos.txt", 'a+');
+	fclose($datos);
 }
 ?>
 <html>
