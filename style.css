@@ -31,7 +31,7 @@ form
     padding: 16px;
 }
 
-input[type=text], input[type=password] {
+input , textarea{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -50,9 +50,24 @@ input[type=submit] {
     width: 100%;
 }
 
+
 /***************
 ****Principal***
 ***************/
+
+.form-wrap
+{
+    position: relative;
+    height: auto;
+    margin: 0 auto;
+    background: #ecf0f1;
+    width: 550px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 10px #333;
+    padding: 8px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
 
 table {
     font-family: Arial, sans-serif;

@@ -4,7 +4,7 @@ if(isset($_SESSION["Usuario"])){
     ?>
     <html>
         <head>
-            <meta http-equiv="refresh" content="0; url=principal.php">
+            <meta http-equiv="refresh" content="0; url=index.php">
         </head>
     </html>
     <?php

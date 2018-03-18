@@ -27,7 +27,7 @@ if((isset($_POST['nombre_login']) && !empty($_POST['nombre_login'])) &&
 		?>
 		<html>
 			<head>
-				<meta http-equiv="refresh" content="0; url=principal.php">
+				<meta http-equiv="refresh" content="0; url=index.php">
 			</head>
 		</html>
 		<?php
