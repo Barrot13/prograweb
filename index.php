@@ -20,7 +20,7 @@ else{
 <body>
     <nav>
         <ul>
-            <li><a href="_index.php?cerrar_sesion=cerrar">Cerrar Sesion</a></li>
+            <li style="float: right; "><a href="_index.php?cerrar_sesion=cerrar">Cerrar Sesion</a></li>
             <li><a>Bienvenido: <?php echo $_SESSION["Usuario"]; ?></a></li>
             <li><a class="active" href="index.php">Index</a></li>
         </ul>
@@ -53,11 +53,11 @@ else{
                 <br>
                 <label for="description"><b>Descripcion</b></label>
                 <br>
-                <textarea name="description" maxlength="350" rows="4" cols="30"></textarea> 
+                <textarea name="description" maxlength="350" rows="2" cols="30"></textarea> 
                 <br>
                 <label for="userfile"><b>Enviar un nuevo archivo: </b></label>
                 <br>
-                <input name="userfile" type="file">
+                <input name="userfile" type="file" value="Agregar">
                 <br>
                 <input type="submit" value="Enviar">
             </form>
@@ -67,6 +67,18 @@ else{
                 <tr>
                     <th>Titulo del Archivo</th>
                     <th>Acciones</th>
+                </tr>
+                <tr>
+                    <td>EIF506</td>
+                    <td>01</td>
+                </tr>
+                <tr>
+                    <td>EIF506</td>
+                    <td>01</td>
+                </tr>
+                <tr>
+                    <td>EIF506</td>
+                    <td>01</td>
                 </tr>
                 <tr>
                     <td>EIF506</td>
