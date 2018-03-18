@@ -1,3 +1,16 @@
+<?php
+session_start();
+if(isset($_SESSION["Usuario"])){
+    ?>
+    <html>
+        <head>
+            <meta http-equiv="refresh" content="0; url=principal.php">
+        </head>
+    </html>
+    <?php
+}
+else{
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,3 +33,6 @@
     </div>
 </body>
 </html>
+<?php
+}
+?>

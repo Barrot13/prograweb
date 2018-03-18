@@ -1,3 +1,16 @@
+<?php
+session_start();
+if(!isset($_SESSION["Usuario"])){
+    ?>
+    <html>
+        <head>
+            <meta http-equiv="refresh" content="0; url=login.php">
+        </head>
+    </html>
+    <?php
+}
+else{
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +19,9 @@
 <body>
 	<h1>Index</h1>
 	<form action="_Principal.php" method="POST" enctype="multipart/form-data">
+    <h2>Bienvenido: <?php echo $_SESSION["Usuario"]; ?></h2>
+    <a href="_Principal.php?cerrar_sesion=cerrar">Cerrar Sesion</a>
+    <br>
     <label for="filename"><b>Nombre del Archivo</b></label>
     <br>
     <input type="text" name="filename" size="20" maxlength="100">
@@ -39,3 +55,6 @@
 </form>
 </body>
 </html>
+<?php
+}
+?>

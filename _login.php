@@ -22,6 +22,8 @@ if((isset($_POST['nombre_login']) && !empty($_POST['nombre_login'])) &&
 	isset($_POST['submit_login'])){
 
 	if(VerificaInicio($_POST['nombre_login'], $_POST['contrasena_login'])){
+		session_start();
+		$_SESSION["Usuario"] = $_POST['nombre_login'];
 		?>
 		<html>
 			<head>
