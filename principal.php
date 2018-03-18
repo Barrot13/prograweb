@@ -5,7 +5,7 @@
 </head>
 <body>
 	<h1>Index</h1>
-	<form action="_SubirArchivo.php" method="POST" enctype="multipart/form-data">
+	<form action="_Principal.php" method="POST" enctype="multipart/form-data">
     <b>Campo de tipo texto:</b>
     <br>
     <input type="text" name="cadenatexto" size="20" maxlength="100">
