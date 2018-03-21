@@ -55,9 +55,22 @@ else{
     			Lo invitamos a seguir el ejemplo proporcionado en esta página.
     		</p>
     	</div>
-    	
+
     	<div>
+    	<br>
+    	<br>
+    	<br>
+    	<br>
     		<h2>Manejo de los Archivos</h2>
+    		<p><img style="float: left; padding-right: 30px;" src="images/table.png">
+    			<b>1. Descargar el Libro</b><br><br>
+    			Para poder descargar el libro, haga click sobre el nombre del archivo. De esta manera el archivo se guardara en su computadora.<br><br>
+    			<b>2. Editar lo datos del Libro</b><br><br>
+    			Al darle click al boton de editar, los datos que se escribieron, al momento de subir el archivo, apareceran de nuevo en el formulario. De esta manera el usuario podra modificar los datos que en ese momento proporcionó.<br><br>
+    			<b>3. Eliminar el Libro</b><br><br>
+    			Para poder eliminar el lirbo, dele click al boton eliminar del respectivo libro en la lista, una vez hecho esto el libro debera desaparecer de la lista de sus Libros Electrónicos. 
+
+    		</p>
     	</div>
     	
     	
