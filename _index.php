@@ -27,9 +27,6 @@ else{
 			SubirArchivo();
 		}
 	}
-	elseif (isset($_GET["descargar"])) {
-		# code...
-	}
 	elseif (isset($_POST["btn_editar"])) {
 		PrepararEditar($_POST["btn_editar"]);
 	}

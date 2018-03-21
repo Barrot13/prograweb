@@ -33,28 +33,28 @@ else{
                 <br>
                 <label for="filename"><b>Nombre del Archivo</b></label>
                 <br>
-                <input type="text" name="filename" value="<?php echo $_SESSION["meta_data"]["filename"]; ?>" size="20" maxlength="100">
+                <input title="Ejemplo: El señor de los anillos" type="text" name="filename" value="<?php echo $_SESSION["meta_data"]["filename"]; ?>" size="20" maxlength="100">
                 <input type="hidden" name="MAX_FILE_SIZE" value="100000">
                 <br>
                 <label for="author"><b>Autor</b></label>
                 <br>
-                <input type="text" name="author" value="<?php echo $_SESSION["meta_data"]["author"]; ?>" size="20" maxlength="100">
+                <input title="Ejemplo: J.R.R Tolkien" type="text" name="author" value="<?php echo $_SESSION["meta_data"]["author"]; ?>" size="20" maxlength="100">
                 <br>
                 <label for="date"><b>Fecha</b></label>
                 <br>
                 <input type="date" name="date" value="<?php echo $_SESSION["meta_data"]["date"]; ?>">
                 <br>
-                <label for="size"><b>Tamaño</b></label>
+                <label for="size"><b>Número de Páginas</b></label>
                 <br>
-                <input type="text" name="size" value="<?php echo $_SESSION["meta_data"]["size"]; ?>" maxlength="100">
+                <input title="Ejemplo: 800 " type="text" name="size" value="<?php echo $_SESSION["meta_data"]["size"]; ?>" maxlength="100">
                 <br>
                 <label for="type"><b>Clasificacion</b></label>
                 <br>
-                <input type="text" name="type" value="<?php echo $_SESSION["meta_data"]["type"]; ?>" maxlength="100">
+                <input title="Ejemplo: Fantasia/Aventura" type="text" name="type" value="<?php echo $_SESSION["meta_data"]["type"]; ?>" maxlength="100">
                 <br>
                 <label for="description"><b>Descripcion</b></label>
                 <br>
-                <textarea name="description" value="<?php echo $_SESSION["meta_data"]["description"]; ?>" maxlength="350" rows="2" cols="30"></textarea> 
+                <textarea title="Ejemplo: Breve descripcion del libro " name="description" value="<?php echo $_SESSION["meta_data"]["description"]; ?>" maxlength="350" rows="2" cols="30"></textarea> 
                 <br>
                 <label for="userfile"><b>Enviar un nuevo archivo: </b></label>
                 <br>

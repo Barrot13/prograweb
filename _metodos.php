@@ -51,7 +51,7 @@ function DibujarTabla($Usuario){
 	if($Datos_Tabla){
 		echo "<table><tr><th>Titulo del Archivo</th><th></th><th></th></tr>";
 		foreach ($Datos_Tabla as $key => $value) {
-			echo '<tr><td><a href="_index.php?descargar='.$value[1].'">'.$value[0].'</a></td>'.
+			echo '<tr><td><a href="'.$value[1].'" target="_blank">'.$value[0].'</a></td>'.
 			'<td><button name="btn_editar" value="'.$value[0]."@".$value[1]."@".$value[2]."@".$value[3].'">Editar</button></td>'.
 			'<td><button name="btn_eliminar" value="'.$value[0]."@".$value[2]."@".$value[3].'">Eliminar</button></td></tr>';
 		}
