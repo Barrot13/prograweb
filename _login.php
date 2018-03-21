@@ -24,6 +24,9 @@ if((isset($_POST['nombre_login']) && !empty($_POST['nombre_login'])) &&
 	if(VerificaInicio($_POST['nombre_login'], $_POST['contrasena_login'])){
 		session_start();
 		$_SESSION["Usuario"] = $_POST['nombre_login'];
+		$_SESSION["meta_data"] = array('filename' => "", 'author' => "", 'date' => "",
+										'size' => "", 'type' => "", 'description' => "");
+		$_SESSION["accion"] = "Nuevo";
 		?>
 		<html>
 			<head>
