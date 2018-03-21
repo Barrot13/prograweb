@@ -151,7 +151,7 @@ button
     margin: 6px 0;
     border: none;
     cursor: pointer;
-    width: 40%;
+    width: 35%;
 }
 
 .container-fluid {
@@ -175,4 +175,11 @@ a
 h2
 {
     text-align: left;
+}
+
+img
+{
+    display: inline-block;
+    width: 50%
+    height:50%;
 }

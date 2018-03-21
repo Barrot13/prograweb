@@ -34,8 +34,32 @@ else{
     	<p>Esta apliación le permite al usuario gestionar sus libros electróncios, de tal manera que el usuario es capaz de subir, descargar estos libros. Al mismo tiempo el sistema es capaz de manejar datos del archivo tales como: Nombre, Autor, Número de Páginas, etc. Estos datos serán proporcionados por el usuario al momento de subir sus Libros Electrónicos</p>
     	<p>Además el usuario es capaz de editar, borrar los datos proporcionados al momento de subir el Libro</p>
     	<br>
-    	<h2>Subir un Libro Electrónico</h2>
-    	<p>Para que el usuario pueda subir un libro al sistema</p>
+
+    	<div>
+    		<h2>Subir un Libro Electrónico</h2>
+    		
+    		<p style="float: right;"> <img style="float: right;" src="images/formcompleted.png">
+    			<b>1. Complete el Formulario</b><br><br>
+    			El sistema posee este fomrulario, el cual el usuario debera llenar con la siguiente información: <br><br>
+    			Nombre del libro<br><br>
+    			Nombre del autor del libro<br><br>
+    			Fecha de Lanzamiento<br><br>
+    			Número de Páginas que posee el libro<br><br>
+    			La clasificación o Género al que pertenece el escrito<br><br>
+    			Por último una breve descrpción del libro<br><br>
+    			<b>2. Ajunte el Archivo</b><br><br>
+    			Una vez completado el formulario, el usuario debera ajuntar el archivo que desea subir, para esto debera hacer click en el boton "browse" el cual le permitira buscar el libro desde su computadora<br><br>
+    			<b>3. Guarde la información</b><br><br>
+    			Al haber realizado los anteriores pasos, ya puede completar la subida del archivo. Dele click  al boton "guardar", si todo salió bien, el nombre del archivo debera aparecer en la lista de archivos que se despliega del lado derecho de su pantalla.<br><br>
+    			<b>NOTA</b><br><br>
+    			Lo invitamos a seguir el ejemplo proporcionado en esta página.
+    		</p>
+    	</div>
+    	
+    	<div>
+    		<h2>Manejo de los Archivos</h2>
+    	</div>
+    	
     	
     </div>
 </body>
