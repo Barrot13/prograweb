@@ -1,5 +1,12 @@
 <?php 
-//tomo el valor de un elemento de tipo texto del formulario
+if(isset($_POST["filename"])){
+	$filename = $_POST["filename"];
+	$author = $_POST["author"];
+	$date = $_POST["date"];
+	$size = $_POST["size"];
+	$type = $_POST["type"];
+	$description = $_POST["description"];
+}
 include '_metodos.php';
 if(isset($_GET["cerrar_sesion"])){
 	session_start();
@@ -24,7 +31,7 @@ else{
 		# code...
 	}
 	elseif (isset($_POST["btn_editar"])) {
-		# code...
+		PrepararEditar($_POST["btn_editar"]);
 	}
 	elseif (isset($_POST["btn_eliminar"])) {
 		# code...

@@ -70,7 +70,9 @@ else{
             ?>
         </div>
         <div class="table-wrap">
-            <?php DibujarTabla($_SESSION["Usuario"]); ?>
+            <form action="_index.php" method="POST">
+                <?php DibujarTabla($_SESSION["Usuario"]); ?>
+            </form>
         </div>
     </div>
 </body>
