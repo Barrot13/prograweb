@@ -3,7 +3,7 @@ function SubirArchivo(){
 	session_start();
 	global $filename, $author, $date, $size, $type, $description;
 	if(empty($filename)){
-		$_SESSION["Mensaje"] = "Debe proporcionar almenos el nombre del archivo";
+		$_SESSION["Mensaje"] = "Debe proporcionar el nombre del archivo";
 		return;
 	}
 	$nombre_archivo = $_FILES['userfile']['name'];
@@ -78,6 +78,10 @@ function PrepararEditar($DatosIndex){
 function EditarArchivo($DatosIndex){
 	session_start();
 	global $filename, $author, $date, $size, $type, $description;
+	if(empty($filename)){
+		$_SESSION["Mensaje"] = "Debe proporcionar el nombre del archivo";
+		return;
+	}
 	$Datos = explode("@", $DatosIndex);
 	$Usuario = explode("/", $Datos[1]);
 	$archivoDatos = fopen($Usuario[0]."/datos.txt", "r+");
