@@ -45,7 +45,7 @@ input , textarea{
 }
 
 button[type=submit], input[type=submit]{
-    background-color: #247ba0;;
+    background-color: #FF8000;
     color: white;
     padding: 10px 16px;
     margin: 8px 0;
@@ -86,11 +86,11 @@ nav li a {
 }
 
 nav li a:hover:not(.active) {
-    background-color:  #247ba0;;
+    background-color:  #FF8000;
 }
 
 .active {
-    background-color: #247ba0;;
+    background-color: #FF8000;
 }
 
 .main
@@ -143,4 +143,36 @@ tr:nth-child(even) {
     background-color: #ecf0f1;
 }
 
+button
+{
+    background-color: #FF8000;
+    color: white;
+    padding: 6px 10px;
+    margin: 6px 0;
+    border: none;
+    cursor: pointer;
+    width: 40%;
+}
 
+.container-fluid {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+h1,h3
+{
+    text-align: center
+}
+
+a
+{
+    color: black;
+}
+
+h2
+{
+    text-align: left;
+}

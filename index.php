@@ -22,6 +22,7 @@ else{
     <nav>
         <ul>
             <li style="float: right; "><a href="_index.php?cerrar_sesion=cerrar">Cerrar Sesion</a></li>
+            <li style="float: right; "><a href="Ayuda.php">Ayuda</a></li>
             <li><a>Bienvenido: <?php echo $_SESSION["Usuario"]; ?></a></li>
             <li><a class="active" href="index.php">Index</a></li>
         </ul>
@@ -56,7 +57,7 @@ else{
                 <br>
                 <textarea title="Ejemplo: Breve descripcion del libro " name="description" maxlength="350" rows="2" cols="30"><?php echo htmlspecialchars($_SESSION["meta_data"]["description"]); ?></textarea> 
                 <br>
-                <label for="userfile"><b>Enviar un nuevo archivo: </b></label>
+                <label for="userfile"><b>Subir un nuevo libro: </b></label>
                 <br>
                 <input name="userfile" type="file" value="Agregar">
                 <br>
