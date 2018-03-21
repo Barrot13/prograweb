@@ -1,4 +1,13 @@
 <?php
+function NombreArchivoValido($NombreArchivo, $Usuario){
+	$ContenidoIndice = file_get_contents($Usuario."/indice.txt");
+	if (strpos($ContenidoIndice, $NombreArchivo)===false) {
+		return true;
+	}
+	else{
+		return false;
+	}
+}
 function SubirArchivo(){
 	session_start();
 	global $filename, $author, $date, $size, $type, $description;
@@ -6,7 +15,15 @@ function SubirArchivo(){
 		$_SESSION["Mensaje"] = "Debe proporcionar el nombre del archivo";
 		return;
 	}
+	if(!NombreArchivoValido($filename, $_SESSION["Usuario"])){
+		$_SESSION["Mensaje"] = "Ya existe un archivo con el nombre: $filename. Debe proporcionar un nombre distinto.";
+		return;
+	}
 	$nombre_archivo = $_FILES['userfile']['name'];
+	if(!NombreArchivoValido($nombre_archivo, $_SESSION["Usuario"])){
+		$_SESSION["Mensaje"] = "Ya existe un archivo con el nombre: $filename. Debe proporcionar un nombre distinto.";
+		return;
+	}
 	$tipo_archivo = $_FILES['userfile']['type'];
 	$tamano_archivo = $_FILES['userfile']['size'];
 	$destino = $_SESSION["Usuario"]."/".$nombre_archivo;
@@ -16,17 +33,12 @@ function SubirArchivo(){
 	}
 	else{
 	    if (move_uploaded_file($_FILES['userfile']['tmp_name'], $destino)){
-	    	$datos = fopen($_SESSION["Usuario"]."/datos.txt", "a+");
 	    	$registro_datos = $filename."@".$author."@".$date."@".$size."@".$type."@".$description;
 	    	$byte_inicio = filesize($_SESSION["Usuario"]."/datos.txt");
 	    	$tamano_registro = strlen($registro_datos);
-	    	fwrite($datos, $registro_datos);
-	    	fclose($datos);
-	    	$indice = fopen($_SESSION["Usuario"]."/indice.txt", "a+");
 	    	$registro_indice = $filename."@".$destino."@".$byte_inicio."@".$tamano_registro."#";
-	    	fwrite($indice, $registro_indice);
-
-	    	$_SESSION["Mensaje"] = "El archivo ha sido cargado correctamente.";
+	    	EscribirEnEspacio($registro_datos, $_SESSION["Usuario"], $destino, $registro_indice, $filename, $filename);
+	    	//$_SESSION["Mensaje"] = "El archivo ha sido cargado correctamente.";
 	    }
 	    else{
 	    	$_SESSION["Mensaje"] = "Ocurrió algún error al subir el fichero. No pudo guardarse.";
@@ -83,22 +95,79 @@ function EditarArchivo($DatosIndex){
 		return;
 	}
 	$Datos = explode("@", $DatosIndex);
-	$Usuario = explode("/", $Datos[1]);
-	$archivoDatos = fopen($Usuario[0]."/datos.txt", "r+");
+	if($Datos[0] != $filename){
+		if(!NombreArchivoValido($filename, $_SESSION["Usuario"])){
+			$_SESSION["Mensaje"] = "Ya existe un archivo con el nombre: $filename. Debe proporcionar un nombre distinto.";
+			return;
+		}
+	}
+	//$Usuario = explode("/", $Datos[1]);
+	$Usuario = $_SESSION["Usuario"];
+	$archivoDatos = fopen($Usuario."/datos.txt", "r+");
 	fseek($archivoDatos, $Datos[2], SEEK_SET);
 	$CadenaEditar = fread($archivoDatos, $Datos[3]);
 	fclose($archivoDatos);
 	$CadenaNueva = $filename."@".$author."@".$date."@".$size."@".$type."@".$description;
-	$NuevaLong = strlen($CadenaNueva);
-	$ContenidoDatos = file_get_contents($Usuario[0]."/datos.txt");
-	$NuevoContenido = str_replace($CadenaEditar, $CadenaNueva, $ContenidoDatos);
-	file_put_contents($Usuario[0]."/datos.txt", $NuevoContenido);
-	$NuevoIndex = $filename."@".$Datos[1]."@".$Datos[2]."@".$NuevaLong;
-	$ContenidoIndice = file_get_contents($Usuario[0]."/indice.txt");
-	$NuevoIndice = str_replace($DatosIndex, $NuevoIndex, $ContenidoIndice);
-	file_put_contents($Usuario[0]."/indice.txt", $NuevoIndice);
+	$ContenidoDatos = file_get_contents($Usuario."/datos.txt");
+	$Blanco = " ";
+	$NuevoContenido = str_replace($CadenaEditar, str_pad($Blanco, strlen($CadenaEditar)), $ContenidoDatos);
+	file_put_contents($Usuario."/datos.txt", $NuevoContenido);
+	EscribirEnEspacio($CadenaNueva, $Usuario, $Datos[1], $DatosIndex, $filename, $Datos[0]);
 	$_SESSION["meta_data"] = array('filename' => "", 'author' => "", 'date' => "",
 										'size' => "", 'type' => "", 'description' => "");
 	$_SESSION["accion"] = "Nuevo";
+}
+
+function EscribirEnEspacio($CadenaD, $Usuario, $destino, $IndexViejo, $filename, $oldfilename){
+	$ContenidoDatos = file_get_contents($Usuario."/datos.txt");
+	$Blanco = " ";
+	if (strpos($ContenidoDatos, str_pad($Blanco, strlen($CadenaD)))===false) {
+		$_SESSION["Mensaje"] = "A";
+		$datos = fopen($Usuario."/datos.txt", "a+");
+	    $byte_inicio = filesize($Usuario."/datos.txt");
+	    fwrite($datos, $CadenaD);
+	    fclose($datos);
+	    $ContenidoIndice = file_get_contents($Usuario."/indice.txt");
+		$registro_indice = $filename."@".$destino."@".$byte_inicio."@".strlen($CadenaD);
+		if (strpos($ContenidoIndice, $oldfilename)===false) {
+			$_SESSION["Mensaje"] = "B";
+			$indice = fopen($Usuario."/indice.txt", "a+");
+	    	fwrite($indice, $registro_indice."#");
+	    	fclose($indice);
+		}
+		else{
+			$_SESSION["Mensaje"] = "C";
+			$NuevoIndice = str_replace($IndexViejo, $registro_indice, $ContenidoIndice);
+			file_put_contents($Usuario."/indice.txt", $NuevoIndice);			
+		}
+	    return false;
+	}
+	else{
+		$Inicio = strpos($ContenidoDatos, str_pad($Blanco, strlen($CadenaD)));
+		$NuevosDatos = str_replace_first(str_pad($Blanco,strlen($CadenaD)),$CadenaD,$ContenidoDatos);
+		$_SESSION["Mensaje"] = $CadenaD;
+		file_put_contents($Usuario."/datos.txt", $NuevosDatos);
+		$ContenidoIndice = file_get_contents($Usuario."/indice.txt");
+		$registro_indice = $filename."@".$destino."@".$Inicio."@".strlen($CadenaD);
+		if (strpos($ContenidoIndice, $oldfilename)===false) {
+			$_SESSION["Mensaje"] = "E";
+			$indice = fopen($Usuario."/indice.txt", "a+");
+	    	fwrite($indice, $registro_indice."#");
+	    	fclose($indice);
+		}
+		else{
+			echo "F";
+			$NuevoIndice = str_replace($IndexViejo, $registro_indice, $ContenidoIndice);
+			file_put_contents($Usuario."/indice.txt", $NuevoIndice);			
+		}
+		return true;
+	}
+}
+
+function str_replace_first($from, $to, $content)
+{
+    $from = '/'.preg_quote($from, '/').'/';
+
+    return preg_replace($from, $to, $content, 1);
 }
 ?>

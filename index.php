@@ -63,18 +63,21 @@ else{
                 <br>
                 <button name="btn_guardar" type="submit" value="<?php echo $_SESSION["accion"]; ?>">Guardar</button>
             </form>
-            <?php
-            if (isset($_SESSION["Mensaje"])) {
-                echo "<p>".$_SESSION["Mensaje"]."</p>";
-                unset($_SESSION["Mensaje"]);
-            }
-            ?>
         </div>
         <div class="table-wrap">
             <form action="_index.php" method="POST">
-                <?php DibujarTabla($_SESSION["Usuario"]); ?>
+                <?php 
+                DibujarTabla($_SESSION["Usuario"]);
+                if (isset($_SESSION["Mensaje"])) {
+                    echo "<p>".$_SESSION["Mensaje"]."</p>";
+                    unset($_SESSION["Mensaje"]);
+                }
+                ?>
             </form>
         </div>
+        <?php
+            
+        ?>
     </div>
 </body>
 </html>
