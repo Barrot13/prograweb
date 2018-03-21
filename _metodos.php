@@ -17,7 +17,7 @@ function SubirArchivo(){
 	else{
 	    if (move_uploaded_file($_FILES['userfile']['tmp_name'], $destino)){
 	    	$datos = fopen($_SESSION["Usuario"]."/datos.txt", "a+");
-	    	$registro_datos = $filename."@".$author."@".$date."@".$size."@".$type."@".$description."#";
+	    	$registro_datos = $filename."@".$author."@".$date."@".$size."@".$type."@".$description;
 	    	$byte_inicio = filesize($_SESSION["Usuario"]."/datos.txt");
 	    	$tamano_registro = strlen($registro_datos);
 	    	fwrite($datos, $registro_datos);
@@ -69,8 +69,32 @@ function PrepararEditar($DatosIndex){
 	$Usuario = explode("/", $Datos[1]);
 	$archivoDatos = fopen($Usuario[0]."/datos.txt", "r+");
 	fseek($archivoDatos, $Datos[2], SEEK_SET);
-	$CadenaEditar = fread($archivoDatos, $Datos[3]-1);
+	$CadenaEditar = fread($archivoDatos, $Datos[3]);
+	fclose($archivoDatos);
 	$array = explode("@", $CadenaEditar);
 	$_SESSION["meta_data"] = array('filename' => $array[0], 'author' => $array[1], 'date' => $array[2], 'size' => $array[3], 'type' => $array[4], 'description' => $array[5]);
+}
+
+function EditarArchivo($DatosIndex){
+	session_start();
+	global $filename, $author, $date, $size, $type, $description;
+	$Datos = explode("@", $DatosIndex);
+	$Usuario = explode("/", $Datos[1]);
+	$archivoDatos = fopen($Usuario[0]."/datos.txt", "r+");
+	fseek($archivoDatos, $Datos[2], SEEK_SET);
+	$CadenaEditar = fread($archivoDatos, $Datos[3]);
+	fclose($archivoDatos);
+	$CadenaNueva = $filename."@".$author."@".$date."@".$size."@".$type."@".$description;
+	$NuevaLong = strlen($CadenaNueva);
+	$ContenidoDatos = file_get_contents($Usuario[0]."/datos.txt");
+	$NuevoContenido = str_replace($CadenaEditar, $CadenaNueva, $ContenidoDatos);
+	file_put_contents($Usuario[0]."/datos.txt", $NuevoContenido);
+	$NuevoIndex = $filename."@".$Datos[1]."@".$Datos[2]."@".$NuevaLong;
+	$ContenidoIndice = file_get_contents($Usuario[0]."/indice.txt");
+	$NuevoIndice = str_replace($DatosIndex, $NuevoIndex, $ContenidoIndice);
+	file_put_contents($Usuario[0]."/indice.txt", $NuevoIndice);
+	$_SESSION["meta_data"] = array('filename' => "", 'author' => "", 'date' => "",
+										'size' => "", 'type' => "", 'description' => "");
+	$_SESSION["accion"] = "Nuevo";
 }
 ?>

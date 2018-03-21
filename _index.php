@@ -26,6 +26,10 @@ else{
 		if ($_POST["btn_guardar"]=="Nuevo") {
 			SubirArchivo();
 		}
+		else{
+			echo "hola";
+			EditarArchivo($_POST["btn_guardar"]);
+		}
 	}
 	elseif (isset($_POST["btn_editar"])) {
 		PrepararEditar($_POST["btn_editar"]);

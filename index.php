@@ -55,7 +55,7 @@ else{
                 <br>
                 <label for="description"><b>Descripcion</b></label>
                 <br>
-                <textarea title="Ejemplo: Breve descripcion del libro " name="description" value="<?php echo $_SESSION["meta_data"]["description"]; ?>" maxlength="350" rows="2" cols="30"></textarea> 
+                <textarea title="Ejemplo: Breve descripcion del libro " name="description" maxlength="350" rows="2" cols="30"><?php echo htmlspecialchars($_SESSION["meta_data"]["description"]); ?></textarea> 
                 <br>
                 <label for="userfile"><b>Subir un nuevo libro: </b></label>
                 <br>
