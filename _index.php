@@ -27,7 +27,6 @@ else{
 			SubirArchivo();
 		}
 		else{
-			echo "hola";
 			EditarArchivo($_POST["btn_guardar"]);
 		}
 	}
@@ -35,7 +34,7 @@ else{
 		PrepararEditar($_POST["btn_editar"]);
 	}
 	elseif (isset($_POST["btn_eliminar"])) {
-		# code...
+		Eliminar($_POST["btn_eliminar"]);
 	}
 	?>
     <html>

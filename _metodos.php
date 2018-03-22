@@ -1,4 +1,43 @@
 <?php
+function VerificaArchivo($Usuario, $NombreArchivo){
+	$ruta = $Usuario."/indice.txt";
+	if(file_exists($ruta)){
+		$datos = file_get_contents($ruta);
+		$array = explode("#", $datos);
+		foreach ($array as $key => $value) {
+			$arrayIndice[$key] = explode("@", $value);
+			if(count($arrayIndice[$key]) > 1){
+				if($arrayIndice[$key][1] == $NombreArchivo){
+					return False;
+				}
+			}
+		}
+		return True;
+	}
+	else{
+		return True;
+	}
+}
+
+function VerificaNombreArchivo($Usuario, $NombreArchivo){
+	$ruta = $Usuario."/indice.txt";
+	if(file_exists($ruta)){
+		$datos = file_get_contents($ruta);
+		$array = explode("#", $datos);
+		foreach ($array as $key => $value) {
+			$arrayIndice[$key] = explode("@", $value);
+			if(count($arrayIndice[$key]) > 1){
+				if($arrayIndice[$key][0] == $NombreArchivo){
+					return False;
+				}
+			}
+		}
+		return True;
+	}
+	else{
+		return True;
+	}
+}
 function NombreArchivoValido($NombreArchivo, $Usuario){
 	$ContenidoIndice = file_get_contents($Usuario."/indice.txt");
 	if (strpos($ContenidoIndice, $NombreArchivo)===false) {
@@ -15,18 +54,19 @@ function SubirArchivo(){
 		$_SESSION["Mensaje"] = "Debe proporcionar el nombre del archivo";
 		return;
 	}
-	if(!NombreArchivoValido($filename, $_SESSION["Usuario"])){
+	if(!VerificaNombreArchivo($_SESSION["Usuario"], $filename)){
 		$_SESSION["Mensaje"] = "Ya existe un archivo con el nombre: $filename. Debe proporcionar un nombre distinto.";
 		return;
 	}
 	$nombre_archivo = $_FILES['userfile']['name'];
-	if(!NombreArchivoValido($nombre_archivo, $_SESSION["Usuario"])){
-		$_SESSION["Mensaje"] = "Ya existe un archivo con el nombre: $filename. Debe proporcionar un nombre distinto.";
+	$destino = $_SESSION["Usuario"]."/".$nombre_archivo;
+	if(!VerificaArchivo($_SESSION["Usuario"], $destino)){
+		$_SESSION["Mensaje"] = "Ya existe un archivo con el nombre: $destino. Debe proporcionar un nombre distinto.";
 		return;
 	}
 	$tipo_archivo = $_FILES['userfile']['type'];
 	$tamano_archivo = $_FILES['userfile']['size'];
-	$destino = $_SESSION["Usuario"]."/".$nombre_archivo;
+	
 	//compruebo si las características del archivo son las que deseo
 	if (!($_FILES['userfile']['type'] == "application/epub+zip")  || $tamano_archivo > 100000) {
 	    $_SESSION["Mensaje"] = "La extensión o el tamaño de los archivos no es correcta";
@@ -65,7 +105,7 @@ function DibujarTabla($Usuario){
 		foreach ($Datos_Tabla as $key => $value) {
 			echo '<tr><td><a href="'.$value[1].'" target="_blank">'.$value[0].'</a></td>'.
 			'<td><button name="btn_editar" value="'.$value[0]."@".$value[1]."@".$value[2]."@".$value[3].'">Editar</button></td>'.
-			'<td><button name="btn_eliminar" value="'.$value[0]."@".$value[2]."@".$value[3].'">Eliminar</button></td></tr>';
+			'<td><button name="btn_eliminar" value="'.$value[0]."@".$value[1]."@".$value[2]."@".$value[3].'">Eliminar</button></td></tr>';
 		}
 		echo "</table>";
 	}
@@ -96,7 +136,7 @@ function EditarArchivo($DatosIndex){
 	}
 	$Datos = explode("@", $DatosIndex);
 	if($Datos[0] != $filename){
-		if(!NombreArchivoValido($filename, $_SESSION["Usuario"])){
+		if(!VerificaNombreArchivo($_SESSION["Usuario"], $filename)){
 			$_SESSION["Mensaje"] = "Ya existe un archivo con el nombre: $filename. Debe proporcionar un nombre distinto.";
 			return;
 		}
@@ -116,13 +156,13 @@ function EditarArchivo($DatosIndex){
 	$_SESSION["meta_data"] = array('filename' => "", 'author' => "", 'date' => "",
 										'size' => "", 'type' => "", 'description' => "");
 	$_SESSION["accion"] = "Nuevo";
+	$_SESSION["Mensaje"] = "El archivo: $filename ha sido modificado con exito.";
 }
 
 function EscribirEnEspacio($CadenaD, $Usuario, $destino, $IndexViejo, $filename, $oldfilename){
 	$ContenidoDatos = file_get_contents($Usuario."/datos.txt");
 	$Blanco = " ";
 	if (strpos($ContenidoDatos, str_pad($Blanco, strlen($CadenaD)))===false) {
-		$_SESSION["Mensaje"] = "A";
 		$datos = fopen($Usuario."/datos.txt", "a+");
 	    $byte_inicio = filesize($Usuario."/datos.txt");
 	    fwrite($datos, $CadenaD);
@@ -130,13 +170,11 @@ function EscribirEnEspacio($CadenaD, $Usuario, $destino, $IndexViejo, $filename,
 	    $ContenidoIndice = file_get_contents($Usuario."/indice.txt");
 		$registro_indice = $filename."@".$destino."@".$byte_inicio."@".strlen($CadenaD);
 		if (strpos($ContenidoIndice, $oldfilename)===false) {
-			$_SESSION["Mensaje"] = "B";
 			$indice = fopen($Usuario."/indice.txt", "a+");
 	    	fwrite($indice, $registro_indice."#");
 	    	fclose($indice);
 		}
 		else{
-			$_SESSION["Mensaje"] = "C";
 			$NuevoIndice = str_replace($IndexViejo, $registro_indice, $ContenidoIndice);
 			file_put_contents($Usuario."/indice.txt", $NuevoIndice);			
 		}
@@ -145,18 +183,15 @@ function EscribirEnEspacio($CadenaD, $Usuario, $destino, $IndexViejo, $filename,
 	else{
 		$Inicio = strpos($ContenidoDatos, str_pad($Blanco, strlen($CadenaD)));
 		$NuevosDatos = str_replace_first(str_pad($Blanco,strlen($CadenaD)),$CadenaD,$ContenidoDatos);
-		$_SESSION["Mensaje"] = $CadenaD;
 		file_put_contents($Usuario."/datos.txt", $NuevosDatos);
 		$ContenidoIndice = file_get_contents($Usuario."/indice.txt");
 		$registro_indice = $filename."@".$destino."@".$Inicio."@".strlen($CadenaD);
 		if (strpos($ContenidoIndice, $oldfilename)===false) {
-			$_SESSION["Mensaje"] = "E";
 			$indice = fopen($Usuario."/indice.txt", "a+");
 	    	fwrite($indice, $registro_indice."#");
 	    	fclose($indice);
 		}
 		else{
-			echo "F";
 			$NuevoIndice = str_replace($IndexViejo, $registro_indice, $ContenidoIndice);
 			file_put_contents($Usuario."/indice.txt", $NuevoIndice);			
 		}
@@ -169,5 +204,24 @@ function str_replace_first($from, $to, $content)
     $from = '/'.preg_quote($from, '/').'/';
 
     return preg_replace($from, $to, $content, 1);
+}
+
+function Eliminar($DatosIndex){
+	session_start();
+	$Usuario = $_SESSION["Usuario"];
+	$Datos = explode("@", $DatosIndex);
+	$archivoDatos = fopen($Usuario."/datos.txt", "r+");
+	fseek($archivoDatos, $Datos[2], SEEK_SET);
+	$CadenaEditar = fread($archivoDatos, $Datos[3]);
+	fclose($archivoDatos);
+	$ContenidoDatos = file_get_contents($Usuario."/datos.txt");
+	$Blanco = " ";
+	$NuevoContenido = str_replace($CadenaEditar, str_pad($Blanco, strlen($CadenaEditar)), $ContenidoDatos);
+	file_put_contents($Usuario."/datos.txt", $NuevoContenido);
+	$ContenidoIndice = file_get_contents($Usuario."/indice.txt");
+	$NuevoContenidoIndice = str_replace($DatosIndex."#", '', $ContenidoIndice);
+	file_put_contents($Usuario."/indice.txt", $NuevoContenidoIndice);
+	unlink($Datos[1]);
+	$_SESSION["Mensaje"] = "El archivo: ".explode("/", $Datos[1])[1]." ha sido eliminado.";
 }
 ?>
