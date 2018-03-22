@@ -48,10 +48,11 @@ button[type=submit], input[type=submit]{
     background-color: #FF8000;
     color: white;
     padding: 10px 16px;
+    margin:3%;
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 35%;
 }
 
 

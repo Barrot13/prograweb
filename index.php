@@ -61,8 +61,8 @@ else{
                 <br>
                 <input name="userfile" type="file" value="Agregar">
                 <br>
-                <button name="btn_guardar" type="submit" value="<?php echo $_SESSION["accion"]; ?>">Guardar</button>
-                <button name="btn_cancelar" type="submit" value="<?php echo $_SESSION["accion"]; ?>">Cancelar</button>
+                <button style="" name="btn_guardar" type="submit" value="<?php echo $_SESSION["accion"]; ?>">Guardar</button>
+                <button style="float: right;" name="btn_cancelar" type="submit" value="<?php echo $_SESSION["accion"]; ?>">Cancelar</button>
             </form>
         </div>
 
