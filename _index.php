@@ -44,6 +44,10 @@ else{
 	elseif (isset($_POST["btn_buscar"])) {
 		Buscar($search);
 	}
+	elseif (isset($_POST["btn_cancelar"])) {
+		session_start();
+		Cancelar();
+	}
 	?>
     <html>
         <head>

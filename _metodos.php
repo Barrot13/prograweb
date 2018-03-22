@@ -161,9 +161,7 @@ function EditarArchivo($DatosIndex){
 	$NuevoContenido = str_replace($CadenaEditar, str_pad($Blanco, strlen($CadenaEditar)), $ContenidoDatos);
 	file_put_contents($Usuario."/datos.txt", $NuevoContenido);
 	EscribirEnEspacio($CadenaNueva, $Usuario, $Datos[1], $DatosIndex, $filename, $Datos[0]);
-	$_SESSION["meta_data"] = array('filename' => "", 'author' => "", 'date' => "",
-										'size' => "", 'type' => "", 'description' => "");
-	$_SESSION["accion"] = "Nuevo";
+	Cancelar();
 	$_SESSION["Mensaje"] = "El archivo: $filename ha sido modificado con exito.";
 }
 
@@ -231,6 +229,7 @@ function Eliminar($DatosIndex){
 	file_put_contents($Usuario."/indice.txt", $NuevoContenidoIndice);
 	unlink($Datos[1]);
 	$_SESSION["Mensaje"] = "El archivo: ".explode("/", $Datos[1])[1]." ha sido eliminado.";
+	Cancelar();
 }
 
 function Buscar($Cadena){
@@ -253,5 +252,10 @@ function BuscarDatos($EntradaIndice, $Cadena){
 		}
 	}
 	return false;
+}
+function Cancelar(){
+	$_SESSION["meta_data"] = array('filename' => "", 'author' => "", 'date' => "",
+										'size' => "", 'type' => "", 'description' => "");
+	$_SESSION["accion"] = "Nuevo";
 }
 ?>
