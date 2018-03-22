@@ -32,7 +32,7 @@ else{
         <div class="form-wrap">
             <form action="_index.php" method="POST" enctype="multipart/form-data">
                 <br>
-                <label for="filename"><b>Nombre del Lirbro</b></label>
+                <label for="filename"><b>Nombre del Archivo</b></label>
                 <br>
                 <input title="Ejemplo: El señor de los anillos" type="text" name="filename" value="<?php echo $_SESSION["meta_data"]["filename"]; ?>" size="20" maxlength="100">
                 <input type="hidden" name="MAX_FILE_SIZE" value="100000">
@@ -65,16 +65,15 @@ else{
             </form>
         </div>
 
-        <div>
-
-        </div>
 
         <div class="table-wrap">
 
-            <form action="_index.php" method="POST">
-                <input title="Nombre del Libro, Autor, Fecha, Clasificación, Número de Páginas, Descripción" placeholder="Nombre del Libro, Autor, Fecha, Clasificación, Número de Páginas, Descripción" type="text" name="search" maxlength="100">
+            <form  id="form-search" action="_index.php" method="POST">
+                <input title="Nombre del libro, Autor, Fecha, Número de Páginas, Clasificación, Descripción" placeholder="Nombre del libro, Autor, Fecha, Número de Páginas, Clasificación, Descripción" type="text" name="search" maxlength="100">
                 <button name="btn_buscar" value="Buscar">Buscar</button>
             </form>
+
+            <form action="_index.php" method="POST">
                 <?php 
                 DibujarTabla($_SESSION["Usuario"]);
                 if (isset($_SESSION["Mensaje"])) {
@@ -82,6 +81,7 @@ else{
                     unset($_SESSION["Mensaje"]);
                 }
                 ?>
+            </form>
         </div>
         <?php
             

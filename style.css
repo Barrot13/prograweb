@@ -184,20 +184,20 @@ img
     height:45%;
 }
 
-.table-wrap form
+.table-wrap #form-search
 {
     width: 50%;
     border: 3px;
 }
 
-.table-wrap form input
+.table-wrap #form-search input
 {
     width: 50%;
     padding: 6px 12px;
     margin: 8px 0;
 }
 
-.table-wrap form button
+.table-wrap #form-search button
 {
     background-color: #FF8000;
     color: white;
