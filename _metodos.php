@@ -92,8 +92,16 @@ function get_Indices($Usuario){
 	$array = explode("#", $datos);
 	foreach ($array as $key => $value) {
 		if (!empty(trim($value))) {
+			if(isset($_SESSION["Buscar"])){
+				if (!BuscarDatos($value, $_SESSION["Buscar"])) {
+				 	continue;
+				}
+			}
 			$arrayDatos[$key] = explode("@", $value);
 		}
+	}
+	if(isset($_SESSION["Buscar"])){
+		unset($_SESSION["Buscar"]);
 	}
 	return (isset($arrayDatos)) ? $arrayDatos : false;
 }
@@ -223,5 +231,27 @@ function Eliminar($DatosIndex){
 	file_put_contents($Usuario."/indice.txt", $NuevoContenidoIndice);
 	unlink($Datos[1]);
 	$_SESSION["Mensaje"] = "El archivo: ".explode("/", $Datos[1])[1]." ha sido eliminado.";
+}
+
+function Buscar($Cadena){
+	session_start();
+	if(!empty(trim($Cadena))){
+		$_SESSION["Buscar"] = trim($Cadena);
+	}
+}
+
+function BuscarDatos($EntradaIndice, $Cadena){
+	$Datos = explode("@", $EntradaIndice);
+	$archivoDatos = fopen($_SESSION["Usuario"]."/datos.txt", "r+");
+	fseek($archivoDatos, $Datos[2], SEEK_SET);
+	$CadenaEditar = fread($archivoDatos, $Datos[3]);
+	fclose($archivoDatos);
+	$haystack = explode("@", $CadenaEditar);
+	foreach ($haystack as $key => $value) {
+		if (strpos($value, $Cadena) !== false) {
+			return true;
+		}
+	}
+	return false;
 }
 ?>

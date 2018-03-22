@@ -7,12 +7,17 @@ if(isset($_POST["filename"])){
 	$type = $_POST["type"];
 	$description = $_POST["description"];
 }
+if(isset($_POST["search"])){
+	$search = $_POST["search"];
+}
+
 include '_metodos.php';
 if(isset($_GET["cerrar_sesion"])){
 	session_start();
 	unset($_SESSION["Usuario"]);
 	unset($_SESSION["meta_data"]);
 	unset($_SESSION["accion"]);
+	unset($_SESSION["Buscar"]);
 	?>
     <html>
         <head>
@@ -35,6 +40,9 @@ else{
 	}
 	elseif (isset($_POST["btn_eliminar"])) {
 		Eliminar($_POST["btn_eliminar"]);
+	}
+	elseif (isset($_POST["btn_buscar"])) {
+		Buscar($search);
 	}
 	?>
     <html>

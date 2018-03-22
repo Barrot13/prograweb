@@ -66,6 +66,9 @@ else{
         </div>
         <div class="table-wrap">
             <form action="_index.php" method="POST">
+                <label for="type"><b>Buscar</b></label>
+                <input title="Ejemplo: Nombre del libro" type="text" name="search" maxlength="100">
+                <button name="btn_buscar" value="Buscar">Buscar</button>
                 <?php 
                 DibujarTabla($_SESSION["Usuario"]);
                 if (isset($_SESSION["Mensaje"])) {
