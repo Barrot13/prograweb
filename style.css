@@ -183,3 +183,27 @@ img
     width: 45%
     height:45%;
 }
+
+.table-wrap form
+{
+    width: 50%;
+    border: 3px;
+}
+
+.table-wrap form input
+{
+    width: 50%;
+    padding: 6px 12px;
+    margin: 8px 0;
+}
+
+.table-wrap form button
+{
+    background-color: #FF8000;
+    color: white;
+    padding: 6px 10px;
+    margin: 6px 0;
+    border: none;
+    cursor: pointer;
+    width: 15%;
+}
